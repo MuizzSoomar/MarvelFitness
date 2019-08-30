@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import UserLoginService from "../service/UserLoginService";
+import CustomerListService from "../service/CustomerListService";
+import Customer from "./Customer.js";
 
 class ListCustomersComponent extends Component {
   constructor(props) {
     super(props);
     this.refreshCustomers = this.refreshCustomers.bind(this);
+    this.state = {
+      customerList: []
+    };
   }
 
   componentDidMount() {
@@ -12,29 +16,32 @@ class ListCustomersComponent extends Component {
   }
 
   refreshCustomers() {
-    UserLoginService.getAllCustomers().then(response => {
-      console.log(response);
+    CustomerListService.getAllCustomers().then(response => {
+      this.setState(() => {
+        return {
+          customerList: response.data
+        };
+      });
     });
   }
 
   render() {
+    const customers = this.state.customerList.map(customer => (
+      <Customer key={customer.customer_id} customer={customer} />
+    ));
+
     return (
       <div className="container">
-        <h3>All Courses</h3>
+        <h3>Customers</h3>
         <div className="container">
           <table className="table">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Description</th>
+                <th>ID</th>
+                <th>Name</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Learn Full stack with Spring Boot and Angular</td>
-              </tr>
-            </tbody>
+            <tbody>{customers}</tbody>
           </table>
         </div>
       </div>
