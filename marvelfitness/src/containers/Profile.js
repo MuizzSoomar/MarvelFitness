@@ -1,32 +1,42 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import {
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Grid
+} from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import "./Profile.css";
+import UserLoginService from "../service/UserLoginService";
+import ListCustomersComponent from "../component/ListCustomersComponent";
 
 export default class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.refreshCustomers = this.refreshCustomers.bind(this);
+  }
+
+  componentDidMount() {
+    this.refreshCustomers();
+  }
+
+  refreshCustomers() {
+    UserLoginService.getAllCustomers().then(response => {
+      console.log(response);
+    });
+  }
+
   render() {
     return (
-      //   <div className="row">
-      //     <div className="column">
-      //       <ControlLabel>Calendar</ControlLabel>
-      //     </div>
-      //     <div className="middle">
-      //       <ControlLabel>middle</ControlLabel>
-      //     </div>
-      //     <div className="right">
-      //       <ControlLabel>right</ControlLabel>
-      //     </div>
-
-      //     {/* this column will contain the calendar */}
-      //   </div>
-
       <Container>
         <Row className="justify-content-md-center">
           <Col lg>
             <ControlLabel>Profile</ControlLabel>
           </Col>
+          <Col sm="8">Name:</Col>
           <Col sm="8">
-            Name:
+            ID Number:
             <Row>
               <Col sm="8">Email:</Col>
             </Row>

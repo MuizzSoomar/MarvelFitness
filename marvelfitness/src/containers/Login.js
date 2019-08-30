@@ -7,6 +7,7 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
+      // state of our email, password fields
       email: "",
       password: ""
     };
@@ -23,6 +24,7 @@ export default class Login extends Component {
   };
 
   handleSubmit = event => {
+    //add code here to login
     event.preventDefault();
   };
 
