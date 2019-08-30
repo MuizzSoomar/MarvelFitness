@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import AuthenticationService from '../service/AuthenticationService';
 import "../styles/Login.css";
 
 export default class Login extends Component {
@@ -7,9 +8,14 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: ""
+      email: "marvelfitness@mailinator.com",
+      password: "marvelfitness",
+      hasLoginFailed: false,
+      showSuccessMessage: false
     };
+
+    this.handleChange = this.handleChange.bind(this)
+    this.loginClicked = this.loginClicked.bind(this)
   }
 
   validateForm() {
@@ -23,8 +29,31 @@ export default class Login extends Component {
   };
 
   handleSubmit = event => {
+    this.loginClicked();
     event.preventDefault();
   };
+
+  loginClicked() {
+        // if(this.state.username==='marvelfitness@mailinator.com' && this.state.password==='marvelfitness'){
+        //     // AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
+        //     this.setState({showSuccessMessage:true})
+        //     this.setState({hasLoginFailed:false})
+        // }
+        // else {
+        //      this.setState({showSuccessMessage:false})
+        //      this.setState({hasLoginFailed:true})
+        // }
+        //
+        AuthenticationService
+            .executeBasicAuthenticationService(this.state.username, this.state.password)
+            .then(() => {
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
+                this.props.history.push(`/customers`)
+            }).catch(() => {
+                this.setState({ showSuccessMessage: false })
+                this.setState({ hasLoginFailed: true })
+            })
+    }
 
   render() {
     return (
