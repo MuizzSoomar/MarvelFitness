@@ -1,0 +1,61 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10%;
+}
+
+.profile {
+  flex-direction: column;
+  display: flex;
+}
+
+.parent {
+  max-width: 1400px;
+  flex-direction: column;
+}
+
+.firstRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.columnOne {
+  display: flex;
+  background-color: rgb(157, 241, 213);
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.columnTwo {
+  display: flex;
+  background-color: rgb(150, 178, 230);
+  flex-basis: 50%;
+  justify-content: center;
+}
+
+.columnTwoHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.secondRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.secondRowHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(209, 255, 200);
+}
+
+/* Formats screen for mobile phones */
+
+@media (min-width: 900px) {
+  .parent {
+    display: flex;
+    justify-content: space-between;
+  }
+}

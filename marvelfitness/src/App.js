@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-import "./App.css";
+import "./styles/App.css";
 import Routes from "./Routes";
 
 class App extends Component {
@@ -19,14 +19,17 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              <LinkContainer to="/signup">
-                <NavItem>Signup</NavItem>
-              </LinkContainer>
               <LinkContainer to="/login">
                 <NavItem>Login</NavItem>
               </LinkContainer>
+              <LinkContainer to="/profile">
+                <NavItem>Profile</NavItem>
+              </LinkContainer>
               <LinkContainer to="/customers/search">
                 <NavItem>Customers</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/Sign Out">
+                <NavItem>Sign out</NavItem>
               </LinkContainer>
             </Nav>
           </Navbar.Collapse>
