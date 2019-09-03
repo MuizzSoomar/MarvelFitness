@@ -1,14 +1,32 @@
 import React, { Component } from "react";
 import CustomerListService from "../service/CustomerListService";
-import Customer from "./Customer.js"
+import { Redirect } from "react-router";
+import BootstrapTable from 'react-bootstrap-table-next';
+
 
 class ListCustomersComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.refreshCustomers = this.refreshCustomers.bind(this);
+    this.state = {
+      customerList: []
+    };
+  }
 
     constructor(props) {
         super(props);
         this.refreshCustomers = this.refreshCustomers.bind(this)
         this.state= {
-            customerList: []
+            customerList: [],
+            columns: [{
+                dataField: 'customer_id',
+                text: 'ID'
+            }, {
+                dataField: 'name',
+                text: 'Name'
+            }],
+            redirect: false,
+            selectedCustomer: null
         };
     }
 
@@ -17,42 +35,52 @@ class ListCustomersComponent extends Component {
     }
 
     refreshCustomers() {
-      CustomerListService.getAllCustomers()
-      .then(
-        response => {
-          this.setState(() => {
-              return {
-                customerList: response.data
-              }
-          });
-        }
-      )
+        CustomerListService.getAllCustomers()
+            .then(
+                response => {
+                    this.setState(() => {
+                        return {
+                            customerList: response.data
+                        }
+                    });
+                }
+            )
     }
 
     render() {
-        const customers = this.state.customerList.map(customer =>
-            <Customer key={customer.customer_id} customer={customer}/>
-        );
-
+        const selectRow = {
+            clickToSelect: true,
+            hideSelectColumn: true,
+            onSelect: (row, isSelect, rowIndex, e) => {
+                this.setState(() => {
+                    return {
+                        redirect: true,
+                        selectedCustomer: rowIndex
+                    }
+                });
+            }
+        };
+        if (this.state.redirect) {
+            // ********uncomment following lines when the customer profile page is ready*******
+            // let link = "/customer/" + this.state.customerList[this.state.selectedCustomer].customer_id;
+            // return <Redirect push to={link} />;
+        }
         return (
             <div className="container">
                 <h3>Customers</h3>
                 <div className="container">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {customers}
-                        </tbody>
-                    </table>
+                    <BootstrapTable
+                        keyField='id'
+                        data={this.state.customerList}
+                        columns={this.state.columns}
+                        bordered={false}
+                        selectRow={ selectRow }
+                    />
                 </div>
             </div>
         )
     }
+
 }
 
-export default ListCustomersComponent
+export default ListCustomersComponent;

@@ -8,14 +8,15 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
-      email: "marvelfitness@mailinator.com",
-      password: "marvelfitness",
+      email: "",
+      password: "",
       hasLoginFailed: false,
       showSuccessMessage: false
     };
 
     this.handleChange = this.handleChange.bind(this)
     this.loginClicked = this.loginClicked.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   validateForm() {
@@ -30,25 +31,15 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     this.loginClicked();
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   loginClicked() {
-        // if(this.state.username==='marvelfitness@mailinator.com' && this.state.password==='marvelfitness'){
-        //     // AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-        //     this.setState({showSuccessMessage:true})
-        //     this.setState({hasLoginFailed:false})
-        // }
-        // else {
-        //      this.setState({showSuccessMessage:false})
-        //      this.setState({hasLoginFailed:true})
-        // }
-        //
         AuthenticationService
-            .executeBasicAuthenticationService(this.state.username, this.state.password)
+            .executeBasicAuthenticationService(this.state.email, this.state.password)
             .then(() => {
-                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-                this.props.history.push(`/customers`)
+                AuthenticationService.registerSuccessfulLogin(this.state.email, this.state.password)
+                this.props.history.push(`/customers/search`)
             }).catch(() => {
                 this.setState({ showSuccessMessage: false })
                 this.setState({ hasLoginFailed: true })
@@ -58,7 +49,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.loginClicked}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email</ControlLabel>
             <FormControl
