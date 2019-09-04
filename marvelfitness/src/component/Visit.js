@@ -9,8 +9,8 @@ class Visit extends Component {
   render() {
     return (
       <tr>
-        <td>{this.props.visit.visit_id}</td>
         <td>{this.props.visit.customer_id}</td>
+        <td>{this.props.visit.visit_id}</td>
         <td>{this.props.visit.timestamp}</td>
       </tr>
     );
