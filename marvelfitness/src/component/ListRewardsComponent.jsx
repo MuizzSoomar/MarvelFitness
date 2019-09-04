@@ -9,14 +9,21 @@ import Form from "react-bootstrap/lib/Form";
 import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import Row from "react-bootstrap/lib/Row";
 import Col from "react-bootstrap/lib/Col";
+import Alert from "react-bootstrap/lib/Alert";
+import Container from "reactstrap/es/Container";
+import "../styles/ListRewards.css";
+
+const TEST_CUSTOMER_ID = 7;
 
 class ListRewardsComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.refreshRewards = this.refreshRewards.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
+        this.redeemReward = this.redeemReward.bind(this);
+        this.refreshRewards = this.refreshRewards.bind(this);
+        this.refreshCustomer = this.refreshCustomer.bind(this);
         this.state= {
             customer:{email:"fakeemail"},
             rewardList: [],
@@ -42,18 +49,23 @@ class ListRewardsComponent extends Component {
     openModal = () => {
         this.setState({ showModal: true });
     };
-    sendEmail = () => {
+    redeemReward = () => {
         this.closeModal();
-        RewardListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id)
-            .then(
-                response => {
-                    console.log(response);
-                }
-            )
+        RewardListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id).then(
+            response => {
+            });
+
+        let new_balance = Number(this.state.customer.rewards_balance) - Number(this.state.selectedReward.value);
+        console.log(`new balance: ${new_balance}`)
+        RewardListService.updateBalance(new_balance, this.state.customer.user_id).then(
+            response => {
+                this.refreshCustomer(this.state.customer.user_id);
+            });
     };
 
     componentDidMount() {
         this.refreshRewards();
+        this.refreshCustomer(TEST_CUSTOMER_ID)
     }
 
     refreshRewards() {
@@ -67,17 +79,19 @@ class ListRewardsComponent extends Component {
                     });
                 }
             )
-        CustomerListService.getAllCustomers()
+    }
+
+    refreshCustomer(customer_id){
+        CustomerListService.getCustomerById(customer_id)
             .then(
                 response => {
-                    this.setState( () => {
+                    this.setState (() => {
                         return {
-                            customer: response.data[0]
+                            customer:response.data
                         }
-                    });
-                    console.log(this.state.customer.user_id);
+                    })
                 }
-            )
+            );
     }
 
     validateForm() {
@@ -99,12 +113,27 @@ class ListRewardsComponent extends Component {
             clickToSelect: true,
             hideSelectColumn: true,
             onSelect: (row, isSelect, rowIndex, e) => {
-                this.openModal();
-                this.setState({ selectedReward:row });
+                if(row.value <= this.state.customer.rewards_balance){
+                    this.openModal();
+                    this.setState({ selectedReward:row });
+                }
             }
         };
+        const rowClasses = (row, rowIndex) => {
+            if(row.value <= this.state.customer.rewards_balance){
+                return 'inBudget';
+            } else {
+                return 'outOfBudget';
+            }
+        };
+
         return (
-            <div className="container">
+            <div className="container"><Container>
+                <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
+                <Alert variant='warning'>
+                    {this.state.customer.name}'s Rewards Balance: ${this.state.customer.rewards_balance}
+                </Alert></Col></Row>
+
                 <h3>Rewards</h3>
                 <div className="container">
                     <BootstrapTable
@@ -113,7 +142,7 @@ class ListRewardsComponent extends Component {
                         columns={this.state.columns}
                         bordered={false}
                         selectRow={selectRow}
-                        hover={true}
+                        rowClasses={ rowClasses }
                     />
                 </div>
                 <Modal show={this.state.showModal} onHide={this.closeModal}>
@@ -137,12 +166,12 @@ class ListRewardsComponent extends Component {
                         <Button variant="secondary" onClick={this.closeModal}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={this.sendEmail}>
+                        <Button variant="primary" onClick={this.redeemReward}>
                             Confirm
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </div>
+            </Container></div>
         )
     }
 

@@ -16,6 +16,10 @@ class RewardListService {
         let reward_email_url = `${MF_PORTAL_URL}/rewards/${reward_id}/email/${user_id}`;
         return axios.post(`${reward_email_url}`);
     }
+    updateBalance(new_balance, user_id) {
+        let update_balance_url = `${MF_PORTAL_URL}/customers/update_balance/${user_id}?new_balance=${new_balance}`;
+        return axios.post(`${update_balance_url}`, new_balance);
+    }
 }
 
 export default new RewardListService();

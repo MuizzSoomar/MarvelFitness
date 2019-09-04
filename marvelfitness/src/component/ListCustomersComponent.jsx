@@ -44,6 +44,7 @@ class ListCustomersComponent extends Component {
         const selectRow = {
             clickToSelect: true,
             hideSelectColumn: true,
+            mode: 'radio',
             onSelect: (row, isSelect, rowIndex, e) => {
                 this.setState(() => {
                     return {
