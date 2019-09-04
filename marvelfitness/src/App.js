@@ -28,6 +28,9 @@ class App extends Component {
               <LinkContainer to="/customers/search">
                 <NavItem>Customers</NavItem>
               </LinkContainer>
+              <LinkContainer to="/rewards">
+                <NavItem>Rewards</NavItem>
+              </LinkContainer>
               <LinkContainer to="/Sign Out">
                 <NavItem>Sign out</NavItem>
               </LinkContainer>
