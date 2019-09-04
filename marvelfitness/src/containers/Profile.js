@@ -34,19 +34,6 @@ export default class Profile extends Component {
     ));
 
     return (
-      //   <div className="row">
-      //     <div className="column">
-      //       <ControlLabel>Calendar</ControlLabel>
-      //     </div>
-      //     <div className="middle">
-      //       <ControlLabel>middle</ControlLabel>
-      //     </div>
-      //     <div className="right">
-      //       <ControlLabel>right</ControlLabel>
-      //     </div>
-
-      //     {/* this column will contain the calendar */}
-      //   </div>
       <div className="parent">
         <div className="firstRow">
           <div className="columnOne">
