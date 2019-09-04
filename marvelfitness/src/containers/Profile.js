@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Container, Row, Col } from "reactstrap";
 import CustomerListService from "../service/CustomerListService";
 import "../styles/Profile.css";
 import Visit from "../component/Visit.js";
 
-export default class Profile extends Component {
+// export default
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.refreshVisits = this.refreshVisits.bind(this);
@@ -54,6 +53,9 @@ export default class Profile extends Component {
             <div className="row">
               <label>Address:</label>
             </div>
+            <div className="row">
+              <label>Reward Balance:</label>
+            </div>
           </div>
 
           <div className="columnTwo">
@@ -70,6 +72,8 @@ export default class Profile extends Component {
               <table className="table">
                 <thead>
                   <tr>
+                    <th>Customer ID</th>
+                    <th>Visit ID</th>
                     <th>Timestamp</th>
                   </tr>
                 </thead>
@@ -82,3 +86,5 @@ export default class Profile extends Component {
     );
   }
 }
+
+export default Profile;
