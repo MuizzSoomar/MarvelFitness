@@ -28,9 +28,9 @@ class Profile extends Component {
   }
 
   render() {
-    const visits = this.state.visitList.map(visit => (
-      <Visit key={visit.visit_id} visit={visit} />
-    ));
+    const visits = this.state.visitList
+      .reverse()
+      .map(visit => <Visit key={visit.visit_id} visit={visit} />);
 
     return (
       <div className="parent">
