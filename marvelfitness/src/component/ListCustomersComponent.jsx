@@ -12,7 +12,7 @@ class ListCustomersComponent extends Component {
         this.state= {
             customerList: [],
             columns: [{
-                dataField: 'customer_id',
+                dataField: 'user_id',
                 text: 'ID'
             }, {
                 dataField: 'name',
@@ -55,7 +55,7 @@ class ListCustomersComponent extends Component {
         };
         if (this.state.redirect) {
             // ********uncomment following lines when the customer profile page is ready*******
-            // let link = "/customer/" + this.state.customerList[this.state.selectedCustomer].customer_id;
+            // let link = "/customer/" + this.state.customerList[this.state.selectedCustomer].user_id;
             // return <Redirect push to={link} />;
         }
         return (
