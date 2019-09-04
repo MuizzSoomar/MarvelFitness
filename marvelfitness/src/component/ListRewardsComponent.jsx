@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import RewardListService from "../service/RewardListService";
+import CustomerListService from "../service/CustomerListService";
 import { Redirect } from "react-router";
 import BootstrapTable from 'react-bootstrap-table-next';
 import Button from "react-bootstrap/lib/Button";
@@ -17,9 +18,12 @@ class ListRewardsComponent extends Component {
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.state= {
-            customer:props.customer,
+            customer:{email:"fakeemail"},
             rewardList: [],
             columns: [{
+                dataField: 'reward_id',
+                text: 'Reward ID'
+            }, {
                 dataField: 'name',
                 text: 'Value'
             }, {
@@ -27,7 +31,7 @@ class ListRewardsComponent extends Component {
                 text: 'Description'
             }],
             redirect: false,
-            selectedReward: null,
+            selectedReward: 1,
             showModal: false
         };
     }
@@ -37,6 +41,15 @@ class ListRewardsComponent extends Component {
     };
     openModal = () => {
         this.setState({ showModal: true });
+    };
+    sendEmail = () => {
+        this.closeModal();
+        RewardListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id)
+            .then(
+                response => {
+                    console.log(response);
+                }
+            )
     };
 
     componentDidMount() {
@@ -52,6 +65,17 @@ class ListRewardsComponent extends Component {
                             rewardList: response.data
                         }
                     });
+                }
+            )
+        CustomerListService.getAllCustomers()
+            .then(
+                response => {
+                    this.setState( () => {
+                        return {
+                            customer: response.data[0]
+                        }
+                    });
+                    console.log(this.state.customer.user_id);
                 }
             )
     }
@@ -76,30 +100,25 @@ class ListRewardsComponent extends Component {
             hideSelectColumn: true,
             onSelect: (row, isSelect, rowIndex, e) => {
                 this.openModal();
-                this.setState({ selectedReward:row.name });
-                console.log(row.name);
+                this.setState({ selectedReward:row });
             }
         };
-        const rowEvents = {
-
-        }
         return (
             <div className="container">
                 <h3>Rewards</h3>
                 <div className="container">
                     <BootstrapTable
-                        keyField='name'
+                        keyField='reward_id'
                         data={this.state.rewardList}
                         columns={this.state.columns}
                         bordered={false}
                         selectRow={selectRow}
                         hover={true}
-                        rowEvents={ rowEvents }
                     />
                 </div>
                 <Modal show={this.state.showModal} onHide={this.closeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{"Redeem "+ this.state.selectedReward + " Reward"}</Modal.Title>
+                        <Modal.Title>{"Redeem "+ this.state.selectedReward.name + " Reward"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
@@ -108,7 +127,7 @@ class ListRewardsComponent extends Component {
                                 <FormControl
                                     autoFocus
                                     type="email"
-                                    value={this.state.email}
+                                    value={this.state.customer.email}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
@@ -118,7 +137,7 @@ class ListRewardsComponent extends Component {
                         <Button variant="secondary" onClick={this.closeModal}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={this.closeModal}>
+                        <Button variant="primary" onClick={this.sendEmail}>
                             Confirm
                         </Button>
                     </Modal.Footer>
