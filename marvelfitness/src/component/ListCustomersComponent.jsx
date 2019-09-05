@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from "react-bootstrap-table-next";
+import "../styles/ListCustomers.css";
+
 
 class ListCustomersComponent extends Component {
   constructor(props) {
@@ -76,6 +78,7 @@ class ListCustomersComponent extends Component {
             bordered={false}
             selectRow={selectRow}
             hover={true}
+            rowClasses='customer'
           />
         </div>
       </div>
