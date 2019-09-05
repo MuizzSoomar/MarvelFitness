@@ -23,8 +23,8 @@ class ListRewardsComponent extends Component {
         this.redeemReward = this.redeemReward.bind(this);
         this.refreshRewards = this.refreshRewards.bind(this);
         this.refreshCustomer = this.refreshCustomer.bind(this);
+        console.log(props);
         this.state= {
-            customer:{email:"fakeemail"},
             rewardList: [],
             columns: [{
                 dataField: 'reward_id',
@@ -50,15 +50,15 @@ class ListRewardsComponent extends Component {
     };
     redeemReward = () => {
         this.closeModal();
-        ListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id).then(
+        ListService.sendEmail(this.state.selectedReward.reward_id, this.props.customer.user_id).then(
             response => {
             });
 
-        let new_balance = Number(this.state.customer.rewards_balance) - Number(this.state.selectedReward.value);
+        let new_balance = Number(this.props.customer.rewards_balance) - Number(this.state.selectedReward.value);
         console.log(`new balance: ${new_balance}`)
-        ListService.updateBalance(new_balance, this.state.customer.user_id).then(
+        ListService.updateBalance(new_balance, this.props.customer.user_id).then(
             response => {
-                this.refreshCustomer(this.state.customer.user_id);
+                this.refreshCustomer(this.props.customer.user_id);
             });
     };
 
@@ -112,14 +112,15 @@ class ListRewardsComponent extends Component {
             clickToSelect: true,
             hideSelectColumn: true,
             onSelect: (row, isSelect, rowIndex, e) => {
-                if(row.value <= this.state.customer.rewards_balance){
+                console.log(row);
+                if(row.value <= this.props.customer.rewards_balance){
                     this.openModal();
                     this.setState({ selectedReward:row });
                 }
             }
         };
         const rowClasses = (row, rowIndex) => {
-            if(row.value <= this.state.customer.rewards_balance){
+            if(row.value <= this.props.customer.rewards_balance){
                 return 'inBudget';
             } else {
                 return 'outOfBudget';
@@ -130,7 +131,7 @@ class ListRewardsComponent extends Component {
             <div className="container"><Container>
                 <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
                 <Alert variant='warning'>
-                    {this.state.customer.name}'s Rewards Balance: ${this.state.customer.rewards_balance}
+                    {this.props.customer.name}'s Rewards Balance: ${this.props.customer.rewards_balance}
                 </Alert></Col></Row>
 
                 <h3>Rewards</h3>
@@ -155,7 +156,7 @@ class ListRewardsComponent extends Component {
                                 <FormControl
                                     autoFocus
                                     type="email"
-                                    value={this.state.customer.email}
+                                    value={this.props.customer.email}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
