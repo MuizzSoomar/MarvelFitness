@@ -8,7 +8,7 @@ class ListCustomersComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.refreshCustomers = this.refreshCustomers.bind(this)
+        this.refreshCustomers = this.refreshCustomers.bind(this);
         this.state= {
             customerList: [],
             columns: [{
@@ -41,22 +41,24 @@ class ListCustomersComponent extends Component {
     }
 
     render() {
+        console.log(this.props)
         const selectRow = {
             clickToSelect: true,
             hideSelectColumn: true,
             mode: 'radio',
             onSelect: (row, isSelect, rowIndex, e) => {
+                this.props.updateCustomer(row);
                 this.setState(() => {
                     return {
                         redirect: true,
-                        selectedCustomer: rowIndex
+                        selectedCustomer: row
                     }
                 });
             }
         };
         if (this.state.redirect) {
             // ********uncomment following lines when the customer profile page is ready*******
-            // let link = "/customer/" + this.state.customerList[this.state.selectedCustomer].user_id;
+            // let link = "/customer/" + this.state.selectedCustomer.user_id;
             // return <Redirect push to={link} />;
         }
         return (
@@ -64,7 +66,7 @@ class ListCustomersComponent extends Component {
                 <h3>Customers</h3>
                 <div className="container">
                     <BootstrapTable
-                        keyField='id'
+                        keyField='user_id'
                         data={this.state.customerList}
                         columns={this.state.columns}
                         bordered={false}
