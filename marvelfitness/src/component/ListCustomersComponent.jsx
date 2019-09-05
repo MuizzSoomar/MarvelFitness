@@ -43,6 +43,7 @@ class ListCustomersComponent extends Component {
         }
     })}
 
+
   render() {
     const customers = this.state.customerList.sort((a, b) =>
       a.user_id > b.user_id ? 1 : -1
