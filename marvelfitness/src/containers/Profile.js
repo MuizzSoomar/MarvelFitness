@@ -3,7 +3,7 @@ import ListService from "../service/ListService";
 import "../styles/Profile.css";
 import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
 
-const TEST_CUSTOMER_ID = 1;
+const TEST_CUSTOMER_ID = 7;
 
 // export default
 class Profile extends Component {
@@ -18,10 +18,9 @@ class Profile extends Component {
   componentDidMount() {
     this.refreshCustomer(TEST_CUSTOMER_ID);
   }
-}
 
   refreshCustomer(customer_id) {
-    CustomerListService.getCustomerById(customer_id).then(response => {
+    ListService.getCustomerById(customer_id).then(response => {
       this.setState(() => {
         return {
           user: response.data
@@ -67,12 +66,6 @@ class Profile extends Component {
               <div className="entry">{this.state.user.rewards_balance}</div>
             </div>
           </div>
-
-          {/* <div className="columnTwo">
-            <div className="columnTwoHeader">
-              <h3>Calendar</h3>
-            </div>
-          </div> */}
         </div>
 
         <div className="secondRow">
@@ -84,5 +77,4 @@ class Profile extends Component {
     );
   }
 }
-
 export default Profile;
