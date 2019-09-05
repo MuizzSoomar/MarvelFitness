@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ListService from "../service/ListService";
 import "../styles/Profile.css";
-import Visit from "../component/Visit.js";
 import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
 
 // export default
