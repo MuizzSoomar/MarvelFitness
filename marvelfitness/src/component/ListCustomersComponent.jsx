@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CustomerListService from "../service/CustomerListService";
+import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from 'react-bootstrap-table-next';
 
@@ -28,7 +28,7 @@ class ListCustomersComponent extends Component {
     }
 
     refreshCustomers() {
-        CustomerListService.getAllCustomers()
+        ListService.getAllCustomers()
             .then(
                 response => {
                     this.setState(() => {

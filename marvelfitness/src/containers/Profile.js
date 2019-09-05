@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CustomerListService from "../service/CustomerListService";
+import ListService from "../service/ListService";
 import "../styles/Profile.css";
 import Visit from "../component/Visit.js";
 
@@ -18,7 +18,7 @@ class Profile extends Component {
   }
 
   refreshVisits() {
-    CustomerListService.getAllVisits().then(response => {
+    ListService.getAllVisits().then(response => {
       this.setState(() => {
         return {
           visitList: response.data
