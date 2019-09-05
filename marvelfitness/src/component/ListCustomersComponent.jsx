@@ -29,32 +29,22 @@ class ListCustomersComponent extends Component {
   }
 
   refreshCustomers() {
-    ListService.getAllCustomers().then(response => {
-      this.setState(() => {
-        return {
-          customerList: response.data
-        };
+    ListService.getAllCustomers()
+        .then(
+            response => {
+              this.setState(() => {
+                return {
+                  customerList: response.data
+                }
+              })
+            }
+        );
         if (this.state.redirect) {
-            // ********uncomment following lines when the customer profile page is ready*******
-            // let link = "/customer/" + this.state.selectedCustomer.user_id;
-            // return <Redirect push to={link} />;
+              // ********uncomment following lines when the customer profile page is ready*******
+              // let link = "/customer/" + this.state.selectedCustomer.user_id;
+              // return <Redirect push to={link} />;
         }
-        return (
-            <div className="container">
-                <h3>Customers</h3>
-                <div className="container">
-                    <BootstrapTable
-                        keyField='user_id'
-                        data={this.state.customerList}
-                        columns={this.state.columns}
-                        bordered={false}
-                        selectRow={ selectRow }
-                        hover={true}
-                    />
-                </div>
-            </div>
-        )
-    }
+  }
 
 
   render() {
