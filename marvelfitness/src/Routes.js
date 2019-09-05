@@ -11,7 +11,7 @@ export default ({updateCustomer, customer}) => (
   <Switch>
     <Route path="/" exact component={Home} />
     <Route path="/login" exact component={Login} />
-    <Route path="/profile" exact component={Profile} />
+    <Route path="/profile" exact render={(props) => <Profile {...props} customer={customer} />}/>
 
     <Route path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
     <Route path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} /> }/>

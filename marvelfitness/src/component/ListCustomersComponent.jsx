@@ -71,6 +71,7 @@ class ListCustomersComponent extends Component {
                         columns={this.state.columns}
                         bordered={false}
                         selectRow={ selectRow }
+                        hover={true}
                     />
                 </div>
             </div>

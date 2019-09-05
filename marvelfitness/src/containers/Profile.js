@@ -9,16 +9,29 @@ class Profile extends Component {
     super(props);
     this.refreshVisits = this.refreshVisits.bind(this);
     this.state = {
+<<<<<<< Updated upstream
       visitList: []
+=======
+      user: props.customer
+>>>>>>> Stashed changes
     };
   }
 
   componentDidMount() {
+<<<<<<< Updated upstream
     this.refreshVisits();
   }
 
   refreshVisits() {
     ListService.getAllVisits().then(response => {
+=======
+    this.refreshCustomer(this.state.user_id);
+  }
+
+
+  refreshCustomer(customer_id) {
+    ListService.getCustomerById(customer_id).then(response => {
+>>>>>>> Stashed changes
       this.setState(() => {
         return {
           visitList: response.data
