@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import RewardListService from "../service/RewardListService";
-import CustomerListService from "../service/CustomerListService";
+import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from 'react-bootstrap-table-next';
 import Button from "react-bootstrap/lib/Button";
@@ -51,13 +50,13 @@ class ListRewardsComponent extends Component {
     };
     redeemReward = () => {
         this.closeModal();
-        RewardListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id).then(
+        ListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id).then(
             response => {
             });
 
         let new_balance = Number(this.state.customer.rewards_balance) - Number(this.state.selectedReward.value);
         console.log(`new balance: ${new_balance}`)
-        RewardListService.updateBalance(new_balance, this.state.customer.user_id).then(
+        ListService.updateBalance(new_balance, this.state.customer.user_id).then(
             response => {
                 this.refreshCustomer(this.state.customer.user_id);
             });
@@ -69,7 +68,7 @@ class ListRewardsComponent extends Component {
     }
 
     refreshRewards() {
-        RewardListService.getAllRewards()
+        ListService.getAllRewards()
             .then(
                 response => {
                     this.setState(() => {
@@ -82,7 +81,7 @@ class ListRewardsComponent extends Component {
     }
 
     refreshCustomer(customer_id){
-        CustomerListService.getCustomerById(customer_id)
+        ListService.getCustomerById(customer_id)
             .then(
                 response => {
                     this.setState (() => {
