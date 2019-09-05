@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import ListService from "../service/ListService";
 import "../styles/Profile.css";
 import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
+import Col from "react-bootstrap/lib/Col";
+import Alert from "react-bootstrap/lib/Alert";
+import Row from "react-bootstrap/lib/Row";
 
 const TEST_CUSTOMER_ID = 7;
 
@@ -11,12 +14,20 @@ class Profile extends Component {
     super(props);
     this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
+      visitList: [],
       user: props.customer
     };
   }
 
   componentDidMount() {
     this.refreshCustomer(this.state.user_id);
+    this.refreshVisits();
+  }
+
+  refreshVisits() {
+    ListService.getAllVisits().then(response => {
+    this.refreshCustomer(this.state.user.user_id);
+  })
   }
 
   refreshCustomer(customer_id) {
@@ -32,6 +43,10 @@ class Profile extends Component {
   render() {
     return (
       <div className="parent">
+        <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
+          <Alert variant='warning' onClick>
+            {this.props.customer.name}'s Rewards Balance: ${this.props.customer.rewards_balance}
+          </Alert></Col></Row>
         <div className="firstRow">
           <div className="columnOne">
             <h2>Profile</h2>

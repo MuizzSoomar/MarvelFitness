@@ -126,7 +126,7 @@ class ListRewardsComponent extends Component {
         };
 
         return (
-            <div className="container"><Container>
+            <div className="container">
                 <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
                 <Alert variant='warning'>
                     {this.props.customer.name}'s Rewards Balance: ${this.props.customer.rewards_balance}
@@ -169,7 +169,7 @@ class ListRewardsComponent extends Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </Container></div>
+            </div>
         )
     }
 
