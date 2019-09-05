@@ -57,7 +57,9 @@ class ListVisitsComponent extends Component {
   }
 
   render() {
-    const visits = this.state.visitList.reverse();
+    const visits = this.state.visitList.sort((a, b) =>
+      a.visit_id < b.visit_id ? 1 : -1
+    );
     visits.forEach(element => {
       {
         element.timestamp = new Intl.DateTimeFormat("en-US", {
