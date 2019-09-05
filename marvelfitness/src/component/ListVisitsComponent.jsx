@@ -3,10 +3,13 @@ import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from "react-bootstrap-table-next";
 
+const TEST_CUSTOMER_ID = 7;
+
 class ListVisitsComponent extends Component {
   constructor(props) {
     super(props);
     this.refreshVisits = this.refreshVisits.bind(this);
+    this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
       visitList: [],
       columns: [
@@ -29,14 +32,25 @@ class ListVisitsComponent extends Component {
   }
 
   componentDidMount() {
-    this.refreshVisits();
+    this.refreshVisits(TEST_CUSTOMER_ID);
+    this.refreshCustomer(TEST_CUSTOMER_ID);
   }
 
-  refreshVisits() {
-    ListService.getAllVisits().then(response => {
+  refreshVisits(customer_id) {
+    ListService.getVisitsByCustomer(customer_id).then(response => {
       this.setState(() => {
         return {
           visitList: response.data
+        };
+      });
+    });
+  }
+
+  refreshCustomer(customer_id) {
+    ListService.getCustomerById(customer_id).then(response => {
+      this.setState(() => {
+        return {
+          customer: response.data
         };
       });
     });
