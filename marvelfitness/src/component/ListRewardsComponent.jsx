@@ -12,8 +12,6 @@ import Alert from "react-bootstrap/lib/Alert";
 import Container from "reactstrap/es/Container";
 import "../styles/ListRewards.css";
 
-const TEST_CUSTOMER_ID = 7;
-
 class ListRewardsComponent extends Component {
 
     constructor(props) {
@@ -64,7 +62,7 @@ class ListRewardsComponent extends Component {
 
     componentDidMount() {
         this.refreshRewards();
-        this.refreshCustomer(TEST_CUSTOMER_ID)
+        this.refreshCustomer(this.props.customer.user_id)
     }
 
     refreshRewards() {

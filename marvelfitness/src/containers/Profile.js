@@ -11,12 +11,12 @@ class Profile extends Component {
     super(props);
     this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
-      user: []
+      user: props.customer
     };
   }
 
   componentDidMount() {
-    this.refreshCustomer(TEST_CUSTOMER_ID);
+    this.refreshCustomer(this.state.user_id);
   }
 
   refreshCustomer(customer_id) {
