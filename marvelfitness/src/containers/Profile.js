@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import CustomerListService from "../service/CustomerListService";
+import ListService from "../service/ListService";
 import "../styles/Profile.css";
-import Visit from "../component/Visit.js";
+import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
 
 const TEST_CUSTOMER_ID = 1;
 
@@ -9,28 +9,16 @@ const TEST_CUSTOMER_ID = 1;
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.refreshVisits = this.refreshVisits.bind(this);
     this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
-      visitList: [],
       user: []
     };
   }
 
   componentDidMount() {
-    this.refreshVisits();
     this.refreshCustomer(TEST_CUSTOMER_ID);
   }
-
-  refreshVisits() {
-    CustomerListService.getAllVisits().then(response => {
-      this.setState(() => {
-        return {
-          visitList: response.data
-        };
-      });
-    });
-  }
+}
 
   refreshCustomer(customer_id) {
     CustomerListService.getCustomerById(customer_id).then(response => {
@@ -43,10 +31,6 @@ class Profile extends Component {
   }
 
   render() {
-    const visits = this.state.visitList
-      .reverse()
-      .map(visit => <Visit key={visit.visit_id} visit={visit} />);
-
     return (
       <div className="parent">
         <div className="firstRow">
@@ -93,19 +77,7 @@ class Profile extends Component {
 
         <div className="secondRow">
           <div className="secondRowHeader">
-            <h3>List View</h3>
-            <div className="container">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Customer ID</th>
-                    <th>Visit ID</th>
-                    <th>Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody>{visits}</tbody>
-              </table>
-            </div>
+            <ListVisitsComponent></ListVisitsComponent>
           </div>
         </div>
       </div>
