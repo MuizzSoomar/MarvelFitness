@@ -156,43 +156,19 @@ class ListRewardsComponent extends Component {
               rowClasses={rowClasses}
             />
           </div>
-          {/* end of second row */}
         </div>
-        {/* end of parent */}
-        {/* </div>   */}
-
-        {/* <div className="container"> */}
-        {/* <Row>
-          <Col sm={6} lg={8} />{" "}
-          <Col sm={6} lg={4}>
-            <Alert variant="warning">
-              {this.state.customer.name}'s Rewards Balance: $
-              {this.state.customer.rewards_balance}
-            </Alert>
-          </Col>
-        </Row>
-
-        <h2>Rewards</h2>
-        <div className="container">
-          <BootstrapTable
-            keyField="reward_id"
-            data={this.state.rewardList}
-            columns={this.state.columns}
-            bordered={false}
-            selectRow={selectRow}
-            rowClasses={rowClasses}
-          />
-        </div> */}
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title>
+            <Modal.Title className="popup">
               {"Redeem " + this.state.selectedReward.name + " Reward"}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <FormGroup controlId="email" bsSize="medium">
-                <ControlLabel>Confirm Email to Redeem Reward</ControlLabel>
+                <ControlLabel className="popup">
+                  Confirm Email to Redeem Reward
+                </ControlLabel>
                 <FormControl
                   autoFocus
                   type="email"
@@ -211,7 +187,6 @@ class ListRewardsComponent extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        {/* </div> */}
       </div>
     );
   }

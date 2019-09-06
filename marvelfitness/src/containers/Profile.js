@@ -71,7 +71,7 @@ class Profile extends Component {
             </div>
             <div className="row">
               <label>Email:</label>
-              <div className="entry">{this.state.user.email}</div>
+              <div className="entry">{this.state.user.username}</div>
             </div>
             <div className="row">
               <label>Phone Number:</label>

@@ -4,6 +4,10 @@
 
 .outOfBudget {
   cursor: default;
-  background-color: rgba(192, 192, 192, 0.918);
+  background-color: rgba(231, 231, 231, 0.377);
   color: white;
+}
+
+.popup {
+  color: black;
 }
