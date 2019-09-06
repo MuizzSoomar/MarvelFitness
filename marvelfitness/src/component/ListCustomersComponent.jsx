@@ -35,7 +35,7 @@ class ListCustomersComponent extends Component {
       this.setState(() => {
         return {
           customerList: response.data
-        };})
+        };});
         if (this.state.redirect) {
             // ********uncomment following lines when the customer profile page is ready*******
             let link = "/profile";
