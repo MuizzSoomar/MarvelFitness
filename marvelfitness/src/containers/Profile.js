@@ -28,8 +28,8 @@ class Profile extends Component {
 
   refreshVisits() {
     ListService.getAllVisits().then(response => {
-    this.refreshCustomer(this.state.user.user_id);
-  })
+      this.refreshCustomer(this.state.user.user_id);
+    });
   }
 
   refreshCustomer(customer_id) {
@@ -45,9 +45,9 @@ class Profile extends Component {
   handleRewardsClick = () => {
     this.setState(() => {
       return {
-        redirect:true
-      }
-    })
+        redirect: true
+      };
+    });
   };
 
   render() {
@@ -58,10 +58,19 @@ class Profile extends Component {
     }
     return (
       <div className="parent">
-        <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
-          <Alert variant='warning' onClick={this.handleRewardsClick} className='reward'>
-            {this.props.customer.name}'s Rewards Balance: ${this.props.customer.rewards_balance}
-          </Alert></Col></Row>
+        <Row>
+          <Col sm={6} lg={8} />{" "}
+          <Col sm={6} lg={4}>
+            <Alert
+              variant="warning"
+              onClick={this.handleRewardsClick}
+              className="reward"
+            >
+              {this.props.customer.name}'s Rewards Balance: $
+              {this.props.customer.rewards_balance}
+            </Alert>
+          </Col>
+        </Row>
         <div className="firstRow">
           <div className="columnOne">
             <h2>Profile</h2>
@@ -90,10 +99,6 @@ class Profile extends Component {
                 {""} {this.state.user.state}
                 {""} {this.state.user.zip}
               </div>
-            </div>
-            <div className="row">
-              <label>Reward Balance:</label>
-              <div className="entry">{this.state.user.rewards_balance}</div>
             </div>
           </div>
         </div>
