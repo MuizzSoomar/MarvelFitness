@@ -5,14 +5,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 
 class ListCustomersComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.refreshCustomers = this.refreshCustomers.bind(this);
-    this.state = {
-      customerList: []
-    };
-  }
-
     constructor(props) {
         super(props);
         this.refreshCustomers = this.refreshCustomers.bind(this)
