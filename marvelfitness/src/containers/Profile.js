@@ -58,19 +58,6 @@ class Profile extends Component {
     }
     return (
       <div className="parent">
-        <Row>
-          <Col sm={6} lg={8} />{" "}
-          <Col sm={6} lg={4}>
-            <Alert
-              variant="warning"
-              onClick={this.handleRewardsClick}
-              className="reward"
-            >
-              {this.props.customer.name}'s Rewards Balance: $
-              {this.props.customer.rewards_balance}
-            </Alert>
-          </Col>
-        </Row>
         <div className="firstRow">
           <div className="columnOne">
             <h2>Profile</h2>
@@ -100,6 +87,19 @@ class Profile extends Component {
                 {""} {this.state.user.zip}
               </div>
             </div>
+          </div>
+          <div className="columnTwo">
+            <Col sm={7} lg={9} />{" "}
+            <Col sm={7} lg={5}>
+              <Alert
+                variant="warning"
+                onClick={this.handleRewardsClick}
+                className="reward"
+              >
+                {this.props.customer.name}'s Rewards Balance: $
+                {this.props.customer.rewards_balance}
+              </Alert>
+            </Col>
           </div>
         </div>
 

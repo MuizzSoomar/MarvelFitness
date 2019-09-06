@@ -23,14 +23,14 @@
   display: flex;
   /* background-color: rgb(157, 241, 213); */
   flex-direction: column;
-  flex-basis: 100%;
+  flex-basis: 50%;
 }
 
 .columnTwo {
   display: flex;
   /* background-color: rgb(150, 178, 230); */
 
-  flex-basis: 50%;
+  flex-basis: 70%;
   justify-content: center;
 }
 

@@ -4,7 +4,6 @@ import { Redirect } from "react-router";
 import BootstrapTable from "react-bootstrap-table-next";
 import "../styles/ListCustomers.css";
 
-
 class ListCustomersComponent extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +34,15 @@ class ListCustomersComponent extends Component {
       this.setState(() => {
         return {
           customerList: response.data
-        };})
-        if (this.state.redirect) {
-            // ********uncomment following lines when the customer profile page is ready*******
-            let link = "/profile";
-            return <Redirect push to={link} />;
-        }
-    })}
+        };
+      });
+      if (this.state.redirect) {
+        // ********uncomment following lines when the customer profile page is ready*******
+        let link = "/profile";
+        return <Redirect push to={link} />;
+      }
+    });
+  }
 
   render() {
     const customers = this.state.customerList.sort((a, b) =>
@@ -68,8 +69,9 @@ class ListCustomersComponent extends Component {
       return <Redirect push to={link} />;
     }
     return (
-      <div className="container">
-        <h3>Customers</h3>
+      // <div className="container">
+      <div className="columnOne">
+        <h2>Customers</h2>
         <div className="container">
           <BootstrapTable
             keyField="user_id"
@@ -78,7 +80,7 @@ class ListCustomersComponent extends Component {
             bordered={false}
             selectRow={selectRow}
             hover={true}
-            rowClasses='customer'
+            rowClasses="customer"
           />
         </div>
       </div>

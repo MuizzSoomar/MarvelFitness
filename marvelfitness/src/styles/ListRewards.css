@@ -1,9 +1,9 @@
 .inBudget {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .outOfBudget {
-    cursor: default;
-    background-color: lightgray;
-    color: white;
+  cursor: default;
+  background-color: rgba(192, 192, 192, 0.918);
+  color: white;
 }
