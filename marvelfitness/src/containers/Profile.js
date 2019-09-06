@@ -1,97 +1,115 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Container, Row, Col } from "reactstrap";
-import CustomerListService from "../service/CustomerListService";
+import ListService from "../service/ListService";
 import "../styles/Profile.css";
-import Visit from "../component/Visit.js";
+import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
+import Col from "react-bootstrap/lib/Col";
+import Alert from "react-bootstrap/lib/Alert";
+import Row from "react-bootstrap/lib/Row";
+import Redirect from "react-router-dom/Redirect";
 
-export default class Profile extends Component {
+const TEST_CUSTOMER_ID = 7;
+
+// export default
+class Profile extends Component {
   constructor(props) {
     super(props);
-    this.refreshVisits = this.refreshVisits.bind(this);
+    this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
-      visitList: []
+      visitList: [],
+      user: props.customer,
+      redirect: false
     };
   }
 
   componentDidMount() {
+    this.refreshCustomer(this.state.user_id);
     this.refreshVisits();
   }
 
   refreshVisits() {
-    CustomerListService.getAllVisits().then(response => {
+    ListService.getAllVisits().then(response => {
+      this.refreshCustomer(this.state.user.user_id);
+    });
+  }
+
+  refreshCustomer(customer_id) {
+    ListService.getCustomerById(customer_id).then(response => {
       this.setState(() => {
         return {
-          visitList: response.data
+          user: response.data
         };
       });
     });
   }
 
+  handleRewardsClick = () => {
+    this.setState(() => {
+      return {
+        redirect: true
+      };
+    });
+  };
+
   render() {
-    const visits = this.state.visitList.map(visit => (
-      <Visit key={visit.visit_id} visit={visit} />
-    ));
-
+    if (this.state.redirect) {
+      // ********uncomment following lines when the customer profile page is ready*******
+      let link = "/rewards";
+      return <Redirect push to={link} />;
+    }
     return (
-      //   <div className="row">
-      //     <div className="column">
-      //       <ControlLabel>Calendar</ControlLabel>
-      //     </div>
-      //     <div className="middle">
-      //       <ControlLabel>middle</ControlLabel>
-      //     </div>
-      //     <div className="right">
-      //       <ControlLabel>right</ControlLabel>
-      //     </div>
-
-      //     {/* this column will contain the calendar */}
-      //   </div>
       <div className="parent">
+        <Row>
+          <Col sm={6} lg={8} />{" "}
+          <Col sm={6} lg={4}>
+            <Alert
+              variant="warning"
+              onClick={this.handleRewardsClick}
+              className="reward"
+            >
+              {this.props.customer.name}'s Rewards Balance: $
+              {this.props.customer.rewards_balance}
+            </Alert>
+          </Col>
+        </Row>
         <div className="firstRow">
           <div className="columnOne">
             <h2>Profile</h2>
-
             <div className="row">
               <label>Name:</label>
+              <div className="entry">{this.state.user.name}</div>
             </div>
             <div className="row">
               <label>ID Number:</label>
+              <div className="entry">{this.state.user.user_id}</div>
             </div>
             <div className="row">
               <label>Email:</label>
+              <div className="entry">{this.state.user.email}</div>
             </div>
             <div className="row">
               <label>Phone Number:</label>
+              <div className="entry">{this.state.user.phone_number}</div>
             </div>
             <div className="row">
               <label>Address:</label>
-            </div>
-          </div>
-
-          <div className="columnTwo">
-            <div className="columnTwoHeader">
-              <h3>Calendar</h3>
+              <div className="entry">
+                {this.state.user.street_one}
+                {""} {this.state.user.street_two}
+                {""} {this.state.user.city}
+                {""} {this.state.user.state}
+                {""} {this.state.user.zip}
+              </div>
             </div>
           </div>
         </div>
 
         <div className="secondRow">
           <div className="secondRowHeader">
-            <h3>List View</h3>
-            <div className="container">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody>{visits}</tbody>
-              </table>
-            </div>
+            <ListVisitsComponent></ListVisitsComponent>
           </div>
         </div>
       </div>
     );
   }
 }
+export default Profile;

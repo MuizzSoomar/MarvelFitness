@@ -28,6 +28,9 @@ class NavBar extends Component {
             { loggedIn && <LinkContainer to="/customers/search">
               <NavItem>Customers</NavItem>
             </LinkContainer> }
+            { loggedIn && <LinkContainer to="/rewards">
+              <NavItem>Rewards</NavItem>
+            </LinkContainer>}
             { loggedIn && <LinkContainer to="/logout">
               <NavItem>Logout</NavItem>
             </LinkContainer> }

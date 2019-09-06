@@ -8,17 +8,30 @@ import ListCustomersComponent from "./component/ListCustomersComponent";
 import Profile from "./containers/Profile";
 import DashboardComponent from './component/dashboard/DashboardComponent'
 import LogoutComponentRouted from './component/logout/LogoutComponent'
+import ListRewardsComponent from "./component/ListRewardsComponent";
 
-export default () => (
+export default ({updateCustomer, customer}) => (
   <Switch>
     <Route path="/" exact component={Home} />
     <Route path="/login" exact component={Login} />
-    <AuthenticatedRoute path="/profile" exact component={Profile} />
-    <AuthenticatedRoute path="/customers/search" exact component={ListCustomersComponent} />
+    <AuthenticatedRoute path="/profile" exact render={(props) => <Profile {...props} customer={customer} />} />
+    <AuthenticatedRoute path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
     <AuthenticatedRoute path="/dashboard" exact component={DashboardComponent} />
     <AuthenticatedRoute path="/logout" exact component={LogoutComponentRouted} />
-
+    <AuthenticatedRoute path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} /> }/>
     {/* Finally, catch all unmatched routes */}
     <Route component={NotFound} />
   </Switch>
 );
+
+
+// Error trials
+// <Route path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={this.props.updateCustomer} /> }/>
+// <Route path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={this.props.customer} /> }/>
+// <Route path="/customers/search" exact component={ListCustomersComponent}/>
+// <Route path="/rewards" exact component={ListRewardsComponent}/>
+//
+// {/* <Route path="/profile" exact render={(props) => <Profile {...props} customer={customer} />}/>
+//
+// <Route path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
+// <Route path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} /> }/>*/}

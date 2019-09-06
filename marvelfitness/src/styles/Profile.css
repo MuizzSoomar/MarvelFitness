@@ -21,14 +21,15 @@
 
 .columnOne {
   display: flex;
-  background-color: rgb(157, 241, 213);
+  /* background-color: rgb(157, 241, 213); */
   flex-direction: column;
-  flex-basis: 50%;
+  flex-basis: 100%;
 }
 
 .columnTwo {
   display: flex;
-  background-color: rgb(150, 178, 230);
+  /* background-color: rgb(150, 178, 230); */
+
   flex-basis: 50%;
   justify-content: center;
 }
@@ -48,7 +49,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgb(209, 255, 200);
+  /* background-color: rgb(209, 255, 200); */
+}
+
+.entry {
+  display: flex;
 }
 
 /* Formats screen for mobile phones */
@@ -58,4 +63,8 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+.reward {
+  cursor: pointer;
 }
