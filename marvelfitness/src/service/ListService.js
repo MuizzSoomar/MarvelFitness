@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const MF_PORTAL_URL = "http://localhost:5000";
-//"http://ec2-18-188-108-237.us-east-2.compute.amazonaws.com/api";
+// const MF_PORTAL_URL =
+//   "http://ec2-18-188-108-237.us-east-2.compute.amazonaws.com/api";
 const CUSTOMER_SEARCH_URL = `${MF_PORTAL_URL}/customers`;
 const VISIT_SEARCH_URL = `${MF_PORTAL_URL}/visits`;
 const REWARD_SEARCH_URL = `${MF_PORTAL_URL}/rewards`;

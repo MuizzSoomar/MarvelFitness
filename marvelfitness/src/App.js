@@ -11,17 +11,17 @@ class App extends Component {
     super(props);
     this.state = {
       customer: {}
-    }
+    };
   }
 
-  updateCustomer = (customer) => {
-    this.setState( () => {
-      return {customer: customer};
-    })
-  }
+  updateCustomer = customer => {
+    this.setState(() => {
+      return { customer: customer };
+    });
+  };
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <div className="App container">
         <NavBarRouted />
