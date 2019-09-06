@@ -161,8 +161,8 @@ class ListRewardsComponent extends Component {
         {/* end of parent */}
         {/* </div>   */}
 
-        <div className="container">
-          {/* <Row>
+        {/* <div className="container"> */}
+        {/* <Row>
           <Col sm={6} lg={8} />{" "}
           <Col sm={6} lg={4}>
             <Alert variant="warning">
@@ -183,35 +183,35 @@ class ListRewardsComponent extends Component {
             rowClasses={rowClasses}
           />
         </div> */}
-          <Modal show={this.state.showModal} onHide={this.closeModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>
-                {"Redeem " + this.state.selectedReward.name + " Reward"}
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <FormGroup controlId="email" bsSize="medium">
-                  <ControlLabel>Confirm Email to Redeem Reward</ControlLabel>
-                  <FormControl
-                    autoFocus
-                    type="email"
-                    value={this.state.customer.email}
-                    onChange={this.handleChange}
-                  />
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.closeModal}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={this.redeemReward}>
-                Confirm
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {"Redeem " + this.state.selectedReward.name + " Reward"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup controlId="email" bsSize="medium">
+                <ControlLabel>Confirm Email to Redeem Reward</ControlLabel>
+                <FormControl
+                  autoFocus
+                  type="email"
+                  value={this.state.customer.email}
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.closeModal}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={this.redeemReward}>
+              Confirm
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {/* </div> */}
       </div>
     );
   }
