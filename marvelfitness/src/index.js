@@ -4,6 +4,7 @@ import "./styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import { createBrowserHistory } from 'history'
 //import Amplify from "aws-amplify";
 //import config from "./config";
 
@@ -31,8 +32,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 //   }
 // });
 
+const history = createBrowserHistory()
+
 ReactDOM.render(
-  <Router>
+  <Router history={history}>
     <App />
   </Router>,
   document.getElementById("root")
