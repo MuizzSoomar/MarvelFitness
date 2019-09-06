@@ -146,16 +146,16 @@ class ListRewardsComponent extends Component {
                 </div>
                 <Modal show={this.state.showModal} onHide={this.closeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{"Redeem "+ this.state.selectedReward.name + " Reward"}</Modal.Title>
+                        <Modal.Title className="modalText">{"Redeem "+ this.state.selectedReward.name + " Reward"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
                             <FormGroup controlId="email" bsSize="medium">
-                                <ControlLabel>Confirm Email to Redeem Reward</ControlLabel>
+                                <ControlLabel className="modalText">Confirm Email to Redeem Reward</ControlLabel>
                                 <FormControl
                                     autoFocus
                                     type="email"
-                                    value={this.state.customer.email}
+                                    value={this.state.customer.username}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>

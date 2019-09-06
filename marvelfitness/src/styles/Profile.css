@@ -1,7 +1,12 @@
+.label {
+  width: 15%;
+}
+
 .row {
   display: flex;
   flex-direction: row;
-  padding-left: 10%;
+  padding-left: 3%;
+  padding-top: 10px;
 }
 
 .profile {
@@ -68,3 +73,4 @@
 .reward {
   cursor: pointer;
 }
+

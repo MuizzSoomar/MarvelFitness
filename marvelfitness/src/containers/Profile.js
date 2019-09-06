@@ -6,6 +6,12 @@ import Col from "react-bootstrap/lib/Col";
 import Alert from "react-bootstrap/lib/Alert";
 import Row from "react-bootstrap/lib/Row";
 import Redirect from "react-router-dom/Redirect";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCoffee, faEdit} from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-bootstrap/lib/Modal";
+import Form from "react-bootstrap/lib/Form";
+import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import Button from "react-bootstrap/lib/Button";
 
 const TEST_CUSTOMER_ID = 7;
 
@@ -17,9 +23,10 @@ class Profile extends Component {
     this.state = {
       visitList: [],
       user: props.customer,
-      redirect: false
+      redirect: false,
     };
   }
+
 
   componentDidMount() {
     this.refreshCustomer(this.state.user_id);
@@ -71,34 +78,35 @@ class Profile extends Component {
             </Alert>
           </Col>
         </Row>
+
         <div className="firstRow">
           <div className="columnOne">
             <h2>Profile</h2>
             <div className="row">
-              <label>Name:</label>
-              <div className="entry">{this.state.user.name}</div>
+              <Col lg={2}><label>Name:</label></Col>
+              <Col lg={10}><div className="entry">{this.state.user.name}</div></Col>
             </div>
             <div className="row">
-              <label>ID Number:</label>
-              <div className="entry">{this.state.user.user_id}</div>
+              <Col lg={2}><label>ID Number:</label></Col>
+              <Col lg={10}><div className="entry">{this.state.user.user_id}</div></Col>
             </div>
             <div className="row">
-              <label>Email:</label>
-              <div className="entry">{this.state.user.email}</div>
+              <Col lg={2}><label>Email:</label></Col>
+              <Col lg={10}><div className="entry">{this.state.user.email}</div></Col>
             </div>
             <div className="row">
-              <label>Phone Number:</label>
-              <div className="entry">{this.state.user.phone_number}</div>
+              <Col lg={2}><label>Phone Number:</label></Col>
+              <Col lg={10}><div className="entry">{this.state.user.phone_number}</div></Col>
             </div>
             <div className="row">
-              <label>Address:</label>
-              <div className="entry">
+              <Col lg={2}><label>Address:</label></Col>
+              <Col lg={10}><div className="entry">
                 {this.state.user.street_one}
                 {""} {this.state.user.street_two}
                 {""} {this.state.user.city}
                 {""} {this.state.user.state}
                 {""} {this.state.user.zip}
-              </div>
+              </div></Col>
             </div>
           </div>
         </div>
