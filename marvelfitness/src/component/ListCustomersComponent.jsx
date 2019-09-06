@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from "react-bootstrap-table-next";
+import "../styles/ListCustomers.css";
+
 
 class ListCustomersComponent extends Component {
   constructor(props) {
@@ -29,23 +31,17 @@ class ListCustomersComponent extends Component {
   }
 
   refreshCustomers() {
-    ListService.getAllCustomers()
-        .then(
-            response => {
-              this.setState(() => {
-                return {
-                  customerList: response.data
-                }
-              })
-            }
-        );
+    ListService.getAllCustomers().then(response => {
+      this.setState(() => {
+        return {
+          customerList: response.data
+        };})
         if (this.state.redirect) {
-              // ********uncomment following lines when the customer profile page is ready*******
-              // let link = "/customer/" + this.state.selectedCustomer.user_id;
-              // return <Redirect push to={link} />;
+            // ********uncomment following lines when the customer profile page is ready*******
+            let link = "/profile";
+            return <Redirect push to={link} />;
         }
-  }
-
+    })}
 
   render() {
     const customers = this.state.customerList.sort((a, b) =>
@@ -68,8 +64,8 @@ class ListCustomersComponent extends Component {
     };
     if (this.state.redirect) {
       // ********uncomment following lines when the customer profile page is ready*******
-      // let link = "/customer/" + this.state.selectedCustomer.user_id;
-      // return <Redirect push to={link} />;
+      let link = "/profile";
+      return <Redirect push to={link} />;
     }
     return (
       <div className="container">
@@ -81,6 +77,8 @@ class ListCustomersComponent extends Component {
             columns={this.state.columns}
             bordered={false}
             selectRow={selectRow}
+            hover={true}
+            rowClasses='customer'
           />
         </div>
       </div>
