@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
-import AuthenticationService from '../../service/AuthenticationService.js'
+import { Redirect } from "react-router"
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { userActions } from '../../redux/actions/userActions.js'
 import '../../styles/Login.css'
 
 class LoginForm extends Component {
@@ -12,12 +14,12 @@ class LoginForm extends Component {
     this.state = {
       username: '',
       password: '',
-      hasLoginFailed: 'false',
-      showLoginSuccess: 'false'
+      isLoading: false
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.loginClicked = this.loginClicked.bind(this)
+
   }
 
   handleChange = event => {
@@ -29,87 +31,73 @@ class LoginForm extends Component {
   loginClicked = event => {
     event.preventDefault()
 
-    // if (this.state.username !== '' && this.state.password !== '') {
-    //   AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-    //   this.props.history.push("/dashboard")
-    // }
-    // else {
-    //   console.log('failed')
-    // }
-
-    // AuthenticationService
-    // .executeBasicAuthenticationService(this.state.username, this.state.password)
-    // .then(
-    //   () => {
-    //     AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-    //     this.props.history.push("/dashboard")
-    //   }
-    // )
-    // .catch(
-    //   () => {
-    //     this.setState({
-    //       hasLoginFailed: true,
-    //       showLoginSuccess: false
-    //     })
-    //   }
-    // )
-
-    AuthenticationService
-    .executeJwtAuthenticationService(this.state.username, this.state.password)
-    .then(
-      (response) => {
-        AuthenticationService.registerSuccessfulLoginJwt(this.state.username, response.data.token)
-        this.props.history.push("/dashboard")
-      }
-    )
-    .catch(
-      () => {
-        this.setState({
-          hasLoginFailed: true,
-          showLoginSuccess: false
-        })
-      }
-    )
+    console.log("dispatching login")
+    const user = {username: this.state.username, password: this.state.password}
+    this.props.startLogin(user)
   }
 
   render() {
-
-    return (
-      <div className="Login">
-        <form onSubmit={this.loginClicked}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="text"
-              name="username"
-              // value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              // value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-              name="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            // disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
-      </div>
-    )
+    if (this.props.loggedIn) {
+      if (this.props.isCustomer) {
+        return <Redirect push to={`/profile`} />
+      }
+      else {
+        return <Redirect push to={"/customers/search"} />
+      }
+    }
+    else {
+      return (
+        <div className="Login">
+          <form onSubmit={this.loginClicked}>
+            <FormGroup controlId="email" bsSize="large">
+              <ControlLabel>Email</ControlLabel>
+              <FormControl
+                autoFocus
+                type="text"
+                name="username"
+                // value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup controlId="password" bsSize="large">
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                // value={this.state.password}
+                onChange={this.handleChange}
+                type="password"
+                name="password"
+              />
+            </FormGroup>
+            <Button
+              block
+              bsSize="large"
+              // disabled={!this.validateForm()}
+              type="submit"
+            >
+              Login
+            </Button>
+          </form>
+        </div>
+      )
+    }
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.user.loggedIn,
+    isCustomer: state.user.isCustomer,
+    id: state.user.id
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    startLogin: (user) => dispatch(userActions.startLogin(user)),
+    loginUser: (user) => dispatch(userActions.loginUser(user))
+  }
+}
 const LoginFormRouted = withRouter(LoginForm)
 
-export default LoginFormRouted
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginFormRouted)

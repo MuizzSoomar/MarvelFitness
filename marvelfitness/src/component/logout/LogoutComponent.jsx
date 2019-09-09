@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { userActions } from '../../redux/actions/userActions.js'
 import AuthenticationService from '../../service/AuthenticationService.js'
 
 class LogoutComponent extends Component {
@@ -13,6 +15,7 @@ class LogoutComponent extends Component {
   logoutClicked = event => {
     console.log('logout successful')
     AuthenticationService.logoutUser()
+    this.props.logoutUser()
     this.props.history.push('/')
   }
 
@@ -33,6 +36,12 @@ class LogoutComponent extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => dispatch(userActions.logoutUser())
+  }
+}
+
 const LogoutComponentRouted = withRouter(LogoutComponent)
 
-export default LogoutComponentRouted
+export default connect(null, mapDispatchToProps)(LogoutComponentRouted)
