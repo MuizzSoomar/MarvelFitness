@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../Constants'
+import { MF_PORTAL_URL } from './ListService'
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 export const TOKEN_SESSION_NAME = 'userToken'
@@ -7,7 +7,7 @@ export const TOKEN_SESSION_NAME = 'userToken'
 class AuthenticationService {
 
   executeJwtAuthenticationService(username, password) {
-    return axios.post(`${API_URL}/authenticate`, {
+    return axios.post(`${MF_PORTAL_URL}/authenticate`, {
       username,
       password
     })
@@ -47,7 +47,7 @@ class AuthenticationService {
   }
 
   getUserDetails(username) {
-    return axios.get(`${API_URL}/user-details/${username}`)
+    return axios.get(`${MF_PORTAL_URL}/user-details/${username}`)
   }
 
 

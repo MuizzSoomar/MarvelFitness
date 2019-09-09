@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ListService from "../service/ListService";
 import "../styles/Profile.css";
-import ListVisitsComponent from "../component/ListVisitsComponent.jsx";
+import ListUserVisitsComponent from "../component/ListUserVisitsComponent.jsx";
 import Col from "react-bootstrap/lib/Col";
 import Alert from "react-bootstrap/lib/Alert";
 import Row from "react-bootstrap/lib/Row";
@@ -12,11 +12,12 @@ import Modal from "react-bootstrap/lib/Modal";
 import Form from "react-bootstrap/lib/Form";
 import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import Button from "react-bootstrap/lib/Button";
+import { connect } from 'react-redux'
 
 const TEST_CUSTOMER_ID = 7;
 
 // export default
-class Profile extends Component {
+class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.refreshCustomer = this.refreshCustomer.bind(this);
@@ -28,18 +29,18 @@ class Profile extends Component {
 
 
   componentDidMount() {
-    this.refreshCustomer(this.props.customer_id);
+    this.refreshCustomer(this.props.user.id);
     this.refreshVisits();
   }
 
   refreshVisits() {
     ListService.getAllVisits().then(response => {
-      this.refreshCustomer(this.props.customer.user_id);
+      this.refreshCustomer(this.props.user.id);
     });
   }
 
-  refreshCustomer(customer_id) {
-    ListService.getCustomerById(customer_id).then(response => {
+  refreshCustomer(id) {
+    ListService.getCustomerById(id).then(response => {
       this.setState(() => {
         return {
           user: response.data
@@ -59,7 +60,7 @@ class Profile extends Component {
   render() {
     if (this.state.redirect) {
       // ********uncomment following lines when the customer profile page is ready*******
-      let link = "/rewards";
+      let link = `/rewards/${this.props.user.id}`;
       return <Redirect push to={link} />;
     }
     return (
@@ -72,8 +73,8 @@ class Profile extends Component {
               onClick={this.handleRewardsClick}
               className="reward"
             >
-              {this.props.customer.name}'s Rewards Balance: $
-              {this.props.customer.rewards_balance}
+              {this.props.user.name}'s Rewards Balance: $
+              {this.props.user.rewards}
             </Alert>
           </Col>
         </Row>
@@ -83,28 +84,28 @@ class Profile extends Component {
             <h2>Profile</h2>
             <div className="row">
               <Col sm={6} lg={4}><label>Name:</label></Col>
-              <Col sm={6} lg={8}><div className="entry">{this.props.customer.name}</div></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.user.name}</div></Col>
             </div>
             <div className="row">
               <Col sm={6} lg={4}><label>ID Number:</label></Col>
-              <Col sm={6} lg={8}><div className="entry">{this.props.customer.user_id}</div></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.user.id}</div></Col>
             </div>
             <div className="row">
               <Col sm={6} lg={4}><label>Email:</label></Col>
-              <Col sm={6} lg={8}><div className="entry">{this.props.customer.username}</div></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.user.username}</div></Col>
             </div>
             <div className="row">
               <Col sm={6} lg={4}><label>Phone Number:</label></Col>
-              <Col sm={6} lg={8}><div className="entry">{this.props.customer.phone_number}</div></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.user.phone}</div></Col>
             </div>
             <div className="row">
               <Col sm={6} lg={4}><label>Address:</label></Col>
               <Col sm={6} lg={8}><div className="entry">
-                {this.props.customer.street_one}
-                {""} {this.props.customer.street_two}
-                {""} {this.props.customer.city}
-                {""} {this.props.customer.state}
-                {""} {this.props.customer.zip}
+                {this.props.user.street_one}
+                {""} {this.props.user.street_two}
+                {""} {this.props.user.city}
+                {""} {this.props.user.st}
+                {""} {this.props.user.zip}
               </div></Col>
             </div>
           </div>
@@ -117,7 +118,7 @@ class Profile extends Component {
 
         <div className="secondRow">
           <div className="secondRowHeader">
-            <ListVisitsComponent customer={this.props.customer}></ListVisitsComponent>
+            <ListUserVisitsComponent customer={this.props.user}></ListUserVisitsComponent>
           </div>
         </div>
       </div>
@@ -125,5 +126,11 @@ class Profile extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default Profile;
+
+export default connect(mapStateToProps)(UserProfile);

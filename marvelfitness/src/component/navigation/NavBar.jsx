@@ -24,13 +24,16 @@ class NavBar extends Component {
             { !loggedIn && <LinkContainer to="/login">
               <NavItem>Login</NavItem>
             </LinkContainer>}
-            { (loggedIn && isCustomer) && <LinkContainer to="/profile">
+            { (loggedIn && isCustomer) && <LinkContainer to={`/profile/${this.props.id}`}>
               <NavItem>Profile</NavItem>
             </LinkContainer> }
             { (loggedIn && !isCustomer) && <LinkContainer to="/customers/search">
               <NavItem>Customers</NavItem>
             </LinkContainer> }
-            { loggedIn && <LinkContainer to="/rewards">
+            { (loggedIn && !isCustomer) && <LinkContainer to="/rewards">
+              <NavItem>Rewards</NavItem>
+            </LinkContainer>}
+            { (loggedIn  && isCustomer ) && <LinkContainer to={`/rewards/${this.props.id}`}>
               <NavItem>Rewards</NavItem>
             </LinkContainer>}
             { loggedIn && <LinkContainer to="/logout">
@@ -47,7 +50,8 @@ const mapStateToProps = state => {
   return {
     isCustomer: state.user.isCustomer,
     username: state.user.username,
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    id: state.user.id
   }
 }
 
