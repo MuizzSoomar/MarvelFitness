@@ -63,6 +63,12 @@ export default function userReducer(state = initialState, action) {
     case userConstants.LOGOUT_USER: {
       return initialState
     }
+    case userConstants.UPDATE_REWARDS: {
+      return {
+        ...state,
+        rewards: action.rewards
+      }
+    }
     default:
       return state
   }
