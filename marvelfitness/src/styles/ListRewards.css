@@ -1,13 +1,15 @@
 .inBudget {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .outOfBudget {
     cursor: default;
     background-color: lightgray;
     color: white;
+
 }
 
 .modalText {
     color: darkgrey;
 }
+
