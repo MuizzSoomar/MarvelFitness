@@ -3,19 +3,13 @@
 }
 
 .outOfBudget {
-  cursor: default;
-  background-color: rgba(231, 231, 231, 0.377);
-  color: white;
-}
+    cursor: default;
+    background-color: lightgray;
+    color: white;
 
-.popup {
-  color: black;
-}
-
-.test {
-  background-color: #8196ff67;
 }
 
 .modalText {
     color: darkgrey;
 }
+
