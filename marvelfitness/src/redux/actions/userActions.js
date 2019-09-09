@@ -18,6 +18,13 @@ const saveUser = (data) => {
     }
 }
 
+const updateRewards = (rewards) => {
+  return {
+    type: userConstants.UPDATE_REWARDS,
+    rewards
+  }
+}
+
 
 const loginStarted = () => {
   console.log("login started")
@@ -78,5 +85,6 @@ export const userActions = {
   loginStarted,
   saveUser,
   startLogin,
-  logoutUser
+  logoutUser,
+  updateRewards
 }

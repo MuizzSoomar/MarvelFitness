@@ -11,6 +11,7 @@ import Col from "react-bootstrap/lib/Col";
 import Alert from "react-bootstrap/lib/Alert";
 import Container from "reactstrap/es/Container";
 import { connect } from 'react-redux'
+import { userActions } from '../redux/actions/userActions.js'
 import "../styles/ListRewards.css";
 
 class ListUserRewardsComponent extends Component {
@@ -53,6 +54,7 @@ class ListUserRewardsComponent extends Component {
             });
 
         let new_balance = Number(this.props.user.rewards) - Number(this.state.selectedReward.value);
+        this.props.updateRewards(new_balance)
         ListService.updateBalance(new_balance, this.props.user.id).then(
             response => {
                 this.refreshCustomer(this.props.user.id)
@@ -164,4 +166,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(ListUserRewardsComponent);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateRewards: (rewards) => dispatch(userActions.updateRewards(rewards))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListUserRewardsComponent);
