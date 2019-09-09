@@ -56,9 +56,8 @@ class ListRewardsComponent extends Component {
         console.log(`new balance: ${new_balance}`)
         ListService.updateBalance(new_balance, this.props.customer.user_id).then(
             response => {
-                this.refreshCustomer(this.state.customer.user_id).then(
-                    this.props.updateCustomer(this.state.customer)
-                );
+                console.log(`in update balance: ${response}`)
+                this.refreshCustomer(this.props.customer.user_id)
             });
         console.log(`was customer updated? ${this.props.customer.rewards_balance}`)
     };
