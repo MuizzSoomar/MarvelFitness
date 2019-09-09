@@ -36,9 +36,6 @@ class NavBar extends Component {
             { loggedIn && <LinkContainer to="/logout">
               <NavItem>Logout</NavItem>
             </LinkContainer> }
-            { loggedIn && <LinkContainer to={`/dashboard/${this.props.username}`}>
-              <NavItem>Dashboard</NavItem>
-            </LinkContainer>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -57,3 +54,7 @@ const mapStateToProps = state => {
 const NavBarRouted = withRouter(NavBar)
 
 export default connect(mapStateToProps)(NavBarRouted)
+
+// { loggedIn && <LinkContainer to={`/dashboard/${this.props.username}`}>
+//   <NavItem>Dashboard</NavItem>
+// </LinkContainer>}

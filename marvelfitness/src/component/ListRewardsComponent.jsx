@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ListService from "../service/ListService";
 import { Redirect } from "react-router";
-import BootstrapTable from 'react-bootstrap-table-next';
+import BootstrapTable from "react-bootstrap-table-next";
 import Button from "react-bootstrap/lib/Button";
 import Modal from "react-bootstrap/lib/Modal";
 import Form from "react-bootstrap/lib/Form";
-import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
 import Row from "react-bootstrap/lib/Row";
 import Col from "react-bootstrap/lib/Col";
 import Alert from "react-bootstrap/lib/Alert";
@@ -21,9 +21,7 @@ class ListRewardsComponent extends Component {
         this.redeemReward = this.redeemReward.bind(this);
         this.refreshRewards = this.refreshRewards.bind(this);
         this.refreshCustomer = this.refreshCustomer.bind(this);
-        console.log(props);
         this.state= {
-            customer: this.props.customer,
             rewardList: [],
             columns: [{
                 dataField: 'reward_id',
@@ -49,22 +47,16 @@ class ListRewardsComponent extends Component {
     };
     redeemReward = () => {
         this.closeModal();
-        ListService.sendEmail(this.state.selectedReward.reward_id, this.state.customer.user_id).then(
+        ListService.sendEmail(this.state.selectedReward.reward_id, this.props.customer.user_id).then(
             response => {
             });
 
-        let new_balance = Number(this.state.customer.rewards_balance) - Number(this.state.selectedReward.value);
-        console.log(`new balance: ${new_balance}`)
-        ListService.updateBalance(new_balance, this.state.customer.user_id).then(
+        let new_balance = Number(this.props.customer.rewards_balance) - Number(this.state.selectedReward.value);
+        ListService.updateBalance(new_balance, this.props.customer.user_id).then(
             response => {
-                this.refreshCustomer(this.state.customer.user_id);
+                this.refreshCustomer(this.props.customer.user_id)
             });
     };
-
-    componentDidMount() {
-        this.refreshCustomer(this.state.customer.user_id);
-        this.refreshRewards();
-    }
 
     refreshRewards() {
         ListService.getAllRewards()
@@ -83,54 +75,44 @@ class ListRewardsComponent extends Component {
         ListService.getCustomerById(customer_id)
             .then(
                 response => {
-                    this.setState (() => {
-                        return {
-                            customer:response.data
-                        }
-                    })
+                    this.props.updateCustomer(response.data)
                 }
             );
     }
 
-    validateForm() {
-        return true;
-    }
+  componentDidMount() {
+    this.refreshCustomer(this.props.customer.user_id);
+    this.refreshRewards();
+  }
 
-    handleChange = event => {
-        this.setState({
-            [event.target.id]: event.target.value
-        });
-    };
-
-    handleSubmit = event => {
-        event.preventDefault();
-    };
+  validateForm() {
+    return true;
+  }
 
     render() {
+
         const selectRow = {
             clickToSelect: true,
             hideSelectColumn: true,
             onSelect: (row, isSelect, rowIndex, e) => {
-                console.log(row);
-                if(row.value <= this.state.customer.rewards_balance){
+                if(row.value <= this.props.customer.rewards_balance){
                     this.openModal();
                     this.setState({ selectedReward:row });
                 }
             }
         };
         const rowClasses = (row, rowIndex) => {
-            if(row.value <= this.state.customer.rewards_balance){
+            if(row.value <= this.props.customer.rewards_balance){
                 return 'inBudget';
             } else {
                 return 'outOfBudget';
             }
         };
-
         return (
             <div className="container">
                 <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
                 <Alert variant='warning'>
-                    {this.state.customer.name}'s Rewards Balance: ${this.state.customer.rewards_balance}
+                    {this.props.customer.name}'s Rewards Balance: ${this.props.customer.rewards_balance}
                 </Alert></Col></Row>
 
                 <h3>Rewards</h3>
@@ -146,16 +128,16 @@ class ListRewardsComponent extends Component {
                 </div>
                 <Modal show={this.state.showModal} onHide={this.closeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{"Redeem "+ this.state.selectedReward.name + " Reward"}</Modal.Title>
+                        <Modal.Title className="modalText">{"Redeem "+ this.state.selectedReward.name + " Reward"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
                             <FormGroup controlId="email" bsSize="medium">
-                                <ControlLabel>Confirm Email to Redeem Reward</ControlLabel>
+                                <ControlLabel className="modalText">Confirm Email to Redeem Reward</ControlLabel>
                                 <FormControl
                                     autoFocus
                                     type="email"
-                                    value={this.state.customer.email}
+                                    value={this.props.customer.username}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
@@ -173,7 +155,6 @@ class ListRewardsComponent extends Component {
             </div>
         )
     }
-
 }
 
 export default ListRewardsComponent;

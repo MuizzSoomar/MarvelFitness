@@ -15,20 +15,14 @@ class App extends Component {
     super(props);
     this.state = {
       customer: {}
-    }
-
-    // this.onUpdateUser = this.onUpdateUser.bind(this)
+    };
   }
 
-  // onUpdateUser(event) {
-  //   this.props.onUpdateUser(event.target.value)
-  // }
-
-  updateCustomer = (customer) => {
-    this.setState( () => {
-      return {customer: customer};
-    })
-  }
+  updateCustomer = customer => {
+    this.setState(() => {
+      return { customer: customer };
+    });
+  };
 
   render() {
     return (
