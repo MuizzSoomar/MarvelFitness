@@ -21,7 +21,6 @@ class ListRewardsComponent extends Component {
         this.redeemReward = this.redeemReward.bind(this);
         this.refreshRewards = this.refreshRewards.bind(this);
         this.refreshCustomer = this.refreshCustomer.bind(this);
-        console.log(props);
         this.state= {
             rewardList: [],
             columns: [{
@@ -53,13 +52,10 @@ class ListRewardsComponent extends Component {
             });
 
         let new_balance = Number(this.props.customer.rewards_balance) - Number(this.state.selectedReward.value);
-        console.log(`new balance: ${new_balance}`)
         ListService.updateBalance(new_balance, this.props.customer.user_id).then(
             response => {
-                console.log(`in update balance: ${response}`)
                 this.refreshCustomer(this.props.customer.user_id)
             });
-        console.log(`was customer updated? ${this.props.customer.rewards_balance}`)
     };
 
     componentDidMount() {
@@ -109,7 +105,6 @@ class ListRewardsComponent extends Component {
             clickToSelect: true,
             hideSelectColumn: true,
             onSelect: (row, isSelect, rowIndex, e) => {
-                console.log(row);
                 if(row.value <= this.props.customer.rewards_balance){
                     this.openModal();
                     this.setState({ selectedReward:row });
@@ -123,7 +118,6 @@ class ListRewardsComponent extends Component {
                 return 'outOfBudget';
             }
         };
-        console.log(`name is : ${this.props.customer.name}`)
         return (
             <div className="container">
                 <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>

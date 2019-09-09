@@ -15,15 +15,12 @@ class App extends Component {
   }
 
   updateCustomer = (customer) => {
-    console.log(`in update customer: ${this.state.customer.rewards_balance}`)
     this.setState( () => {
       return {customer: customer};
     })
-    console.log(`updating customer:${this.state.customer.name} has ${this.state.customer.rewards_balance}`)
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="App container">
         <NavBarRouted />

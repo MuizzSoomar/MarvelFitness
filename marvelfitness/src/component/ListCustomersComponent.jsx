@@ -47,7 +47,6 @@ class ListCustomersComponent extends Component {
     const customers = this.state.customerList.sort((a, b) =>
       a.user_id > b.user_id ? 1 : -1
     );
-    console.log(this.props);
     const selectRow = {
       clickToSelect: true,
       hideSelectColumn: true,
