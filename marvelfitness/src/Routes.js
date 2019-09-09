@@ -18,7 +18,7 @@ export default ({updateCustomer, customer}) => (
     <AuthenticatedRoute path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
     <AuthenticatedRoute path="/dashboard" exact component={DashboardComponent} />
     <AuthenticatedRoute path="/logout" exact component={LogoutComponentRouted} />
-    <AuthenticatedRoute path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} /> }/>
+    <AuthenticatedRoute path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} updateCustomer={updateCustomer}/> }/>
     {/* Finally, catch all unmatched routes */}
     <Route component={NotFound} />
   </Switch>

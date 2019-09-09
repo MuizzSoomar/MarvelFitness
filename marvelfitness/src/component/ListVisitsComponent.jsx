@@ -3,8 +3,6 @@ import ListService from "../service/ListService";
 import { Redirect } from "react-router";
 import BootstrapTable from "react-bootstrap-table-next";
 
-const TEST_CUSTOMER_ID = 7;
-
 class ListVisitsComponent extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,8 @@ class ListVisitsComponent extends Component {
   }
 
   componentDidMount() {
-    this.refreshVisits(TEST_CUSTOMER_ID);
-    this.refreshCustomer(TEST_CUSTOMER_ID);
+    this.refreshVisits(this.props.customer.user_id);
+    this.refreshCustomer(this.props.customer.user_id);
   }
 
   refreshVisits(customer_id) {
