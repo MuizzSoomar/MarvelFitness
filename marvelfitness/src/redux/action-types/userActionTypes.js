@@ -6,5 +6,6 @@ export const userConstants = {
   SAVE_USER: "user:saveUser",
   START_LOGIN: "user:startLogin",
   LOGIN_STARTED: "user:loginStarted",
-  LOGOUT_USER: "user:logoutUser"
+  LOGOUT_USER: "user:logoutUser",
+  UPDATE_REWARDS: "user:updateRewards"
 }
