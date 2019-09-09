@@ -18,6 +18,7 @@ class App extends Component {
     this.setState( () => {
       return {customer: customer};
     })
+    console.log(`updating customer:${this.state.customer.name} has ${this.state.customer.rewards_balance}`)
   }
 
   render() {

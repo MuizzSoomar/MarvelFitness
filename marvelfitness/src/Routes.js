@@ -14,7 +14,7 @@ export default ({updateCustomer, customer}) => (
     <Route path="/profile" exact render={(props) => <Profile {...props} customer={customer} />}/>
 
     <Route path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
-    <Route path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} updateCustomer={updateCustomer} /> }/>
+    <Route path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} updateCustomer={updateCustomer}/> }/>
 
     {/* Finally, catch all unmatched routes */}
     <Route component={NotFound} />
