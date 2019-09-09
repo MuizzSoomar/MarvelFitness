@@ -22,20 +22,19 @@ class Profile extends Component {
     this.refreshCustomer = this.refreshCustomer.bind(this);
     this.state = {
       visitList: [],
-      user: props.customer,
       redirect: false,
     };
   }
 
 
   componentDidMount() {
-    this.refreshCustomer(this.state.user_id);
+    this.refreshCustomer(this.props.customer_id);
     this.refreshVisits();
   }
 
   refreshVisits() {
     ListService.getAllVisits().then(response => {
-      this.refreshCustomer(this.state.user.user_id);
+      this.refreshCustomer(this.props.customer.user_id);
     });
   }
 
@@ -83,29 +82,29 @@ class Profile extends Component {
           <div className="columnOne">
             <h2>Profile</h2>
             <div className="row">
-              <Col lg={2}><label>Name:</label></Col>
-              <Col lg={10}><div className="entry">{this.state.user.name}</div></Col>
+              <Col sm={2} lg={2}><label>Name:</label></Col>
+              <Col sm={10} lg={10}><div className="entry">{this.props.customer.name}</div></Col>
             </div>
             <div className="row">
-              <Col lg={2}><label>ID Number:</label></Col>
-              <Col lg={10}><div className="entry">{this.state.user.user_id}</div></Col>
+              <Col sm={2} lg={2}><label>ID Number:</label></Col>
+              <Col sm={10} lg={10}><div className="entry">{this.props.customer.user_id}</div></Col>
             </div>
             <div className="row">
-              <Col lg={2}><label>Email:</label></Col>
-              <Col lg={10}><div className="entry">{this.state.user.email}</div></Col>
+              <Col sm={2} lg={2}><label>Email:</label></Col>
+              <Col sm={10} lg={10}><div className="entry">{this.props.customer.email}</div></Col>
             </div>
             <div className="row">
-              <Col lg={2}><label>Phone Number:</label></Col>
-              <Col lg={10}><div className="entry">{this.state.user.phone_number}</div></Col>
+              <Col sm={2} lg={2}><label>Phone Number:</label></Col>
+              <Col sm={10} lg={10}><div className="entry">{this.props.customer.phone_number}</div></Col>
             </div>
             <div className="row">
-              <Col lg={2}><label>Address:</label></Col>
-              <Col lg={10}><div className="entry">
-                {this.state.user.street_one}
-                {""} {this.state.user.street_two}
-                {""} {this.state.user.city}
-                {""} {this.state.user.state}
-                {""} {this.state.user.zip}
+              <Col sm={2} lg={2}><label>Address:</label></Col>
+              <Col sm={10} lg={10}><div className="entry">
+                {this.props.customer.street_one}
+                {""} {this.props.customer.street_two}
+                {""} {this.props.customer.city}
+                {""} {this.props.customer.state}
+                {""} {this.props.customer.zip}
               </div></Col>
             </div>
           </div>
@@ -113,7 +112,7 @@ class Profile extends Component {
 
         <div className="secondRow">
           <div className="secondRowHeader">
-            <ListVisitsComponent></ListVisitsComponent>
+            <ListVisitsComponent customer={this.props.customer}></ListVisitsComponent>
           </div>
         </div>
       </div>

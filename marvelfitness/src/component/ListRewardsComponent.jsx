@@ -123,7 +123,6 @@ class ListRewardsComponent extends Component {
                 return 'outOfBudget';
             }
         };
-        console.log(`name is : ${this.props.customer.name}`)
         return (
             <div className="container">
                 <Row><Col sm={6} lg={8} /> <Col sm={6} lg={4}>
