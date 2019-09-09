@@ -11,14 +11,14 @@ class App extends Component {
     super(props);
     this.state = {
       customer: {}
-    }
+    };
   }
 
-  updateCustomer = (customer) => {
-    this.setState( () => {
-      return {customer: customer};
-    })
-  }
+  updateCustomer = customer => {
+    this.setState(() => {
+      return { customer: customer };
+    });
+  };
 
   render() {
     return (
