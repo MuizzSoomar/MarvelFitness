@@ -10,6 +10,7 @@ const initialState = {
   city: '',
   st: '',
   zip: '',
+  phone: '',
   isCustomer: true,
   token: '',
   loggedIn: false
@@ -34,6 +35,7 @@ export default function userReducer(state = initialState, action) {
       const city = action.city !== null ? action.city : ''
       const st = action.state !== null ? action.state : ''
       const zip = action.zip !== null ? action.zip : ''
+      const phone = action.phone_number !== null ? action.phone_number : ''
 
       return {
         ...state,
@@ -45,6 +47,7 @@ export default function userReducer(state = initialState, action) {
         city: city,
         st: st,
         zip: zip,
+        phone: phone,
         isCustomer: action.isCustomer,
         loggedIn: true
       }

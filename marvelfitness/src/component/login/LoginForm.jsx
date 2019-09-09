@@ -39,7 +39,7 @@ class LoginForm extends Component {
   render() {
     if (this.props.loggedIn) {
       if (this.props.isCustomer) {
-        return <Redirect push to={`/profile`} />
+        return <Redirect push to={`/profile/${this.props.id}`} />
       }
       else {
         return <Redirect push to={"/customers/search"} />

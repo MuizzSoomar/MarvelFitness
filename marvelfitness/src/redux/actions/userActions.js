@@ -13,6 +13,7 @@ const saveUser = (data) => {
     city: data.city,
     state: data.state,
     zip: data.zip,
+    phone_number: data.phone_number,
     isCustomer: data.customer
     }
 }
