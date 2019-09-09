@@ -111,14 +111,6 @@ class Profile extends Component {
           <div className="columnTwo">
             <Col sm={7} lg={9} />{" "}
             <Col sm={7} lg={5}>
-              <Alert
-                variant="warning"
-                onClick={this.handleRewardsClick}
-                className="reward"
-              >
-                {this.props.customer.name}'s Rewards Balance: $
-                {this.props.customer.rewards_balance}
-              </Alert>
             </Col>
           </div>
         </div>

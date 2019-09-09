@@ -81,7 +81,7 @@ class ListRewardsComponent extends Component {
     }
 
   componentDidMount() {
-    this.refreshCustomer(this.state.customer.user_id);
+    this.refreshCustomer(this.props.customer.user_id);
     this.refreshRewards();
   }
 
@@ -155,70 +155,6 @@ class ListRewardsComponent extends Component {
             </div>
         )
     }
-
-    return (
-      <div className="parent">
-        <div className="firstRow">
-          <div className="columnOne">
-            <h2>Rewards</h2>
-          </div>
-          <div className="columnTwo">
-            <Col sm={7} lg={9} />{" "}
-            <Col sm={7} lg={5}>
-              <Alert variant="warning">
-                {this.state.customer.name}'s Rewards Balance: $
-                {this.state.customer.rewards_balance}
-              </Alert>
-            </Col>
-            {/* end of column Two */}
-          </div>
-          {/* end of first row */}
-        </div>
-        <div className="secondRow">
-          <div className="container">
-            <BootstrapTable
-              keyField="reward_id"
-              data={this.state.rewardList}
-              columns={this.state.columns}
-              bordered={false}
-              selectRow={selectRow}
-              rowClasses={rowClasses}
-            />
-          </div>
-        </div>
-        <Modal show={this.state.showModal} onHide={this.closeModal}>
-          <Modal.Header closeButton>
-            <Modal.Title className="popup">
-              {"Redeem " + this.state.selectedReward.name + " Reward"}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <FormGroup controlId="email" bsSize="medium">
-                <ControlLabel className="popup">
-                  Confirm Email to Redeem Reward
-                </ControlLabel>
-                <FormControl
-                  autoFocus
-                  type="email"
-                  value={this.state.customer.email}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.closeModal}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={this.redeemReward}>
-              Confirm
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
-  }
 }
 
 export default ListRewardsComponent;
