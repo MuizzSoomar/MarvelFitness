@@ -100,7 +100,7 @@ class Profile extends Component {
 
         <div className="secondRow">
           <div className="secondRowHeader">
-            <ListVisitsComponent></ListVisitsComponent>
+            <ListVisitsComponent customer = {this.props.customer}></ListVisitsComponent>
           </div>
         </div>
       </div>
