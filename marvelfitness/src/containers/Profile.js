@@ -82,24 +82,24 @@ class Profile extends Component {
           <div className="columnOne">
             <h2>Profile</h2>
             <div className="row">
-              <Col sm={2} lg={2}><label>Name:</label></Col>
-              <Col sm={10} lg={10}><div className="entry">{this.props.customer.name}</div></Col>
+              <Col sm={6} lg={4}><label>Name:</label></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.customer.name}</div></Col>
             </div>
             <div className="row">
-              <Col sm={2} lg={2}><label>ID Number:</label></Col>
-              <Col sm={10} lg={10}><div className="entry">{this.props.customer.user_id}</div></Col>
+              <Col sm={6} lg={4}><label>ID Number:</label></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.customer.user_id}</div></Col>
             </div>
             <div className="row">
-              <Col sm={2} lg={2}><label>Email:</label></Col>
-              <Col sm={10} lg={10}><div className="entry">{this.props.customer.email}</div></Col>
+              <Col sm={6} lg={4}><label>Email:</label></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.customer.username}</div></Col>
             </div>
             <div className="row">
-              <Col sm={2} lg={2}><label>Phone Number:</label></Col>
-              <Col sm={10} lg={10}><div className="entry">{this.props.customer.phone_number}</div></Col>
+              <Col sm={6} lg={4}><label>Phone Number:</label></Col>
+              <Col sm={6} lg={8}><div className="entry">{this.props.customer.phone_number}</div></Col>
             </div>
             <div className="row">
-              <Col sm={2} lg={2}><label>Address:</label></Col>
-              <Col sm={10} lg={10}><div className="entry">
+              <Col sm={6} lg={4}><label>Address:</label></Col>
+              <Col sm={6} lg={8}><div className="entry">
                 {this.props.customer.street_one}
                 {""} {this.props.customer.street_two}
                 {""} {this.props.customer.city}
