@@ -16,7 +16,7 @@ export default ({updateCustomer, customer}) => (
     <Route path="/login" exact component={Login} />
     <AuthenticatedRoute path="/profile" exact render={(props) => <Profile {...props} customer={customer} />} />
     <AuthenticatedRoute path="/customers/search" exact render={(props) => <ListCustomersComponent {...props} updateCustomer={updateCustomer} /> }/>
-    <AuthenticatedRoute path="/dashboard" exact component={DashboardComponent} />
+    // <AuthenticatedRoute path="/dashboard/:name" exact component={DashboardComponent} />
     <AuthenticatedRoute path="/logout" exact component={LogoutComponentRouted} />
     <AuthenticatedRoute path="/rewards" exact render={(props) => <ListRewardsComponent {...props} customer={customer} updateCustomer={updateCustomer} /> }/>
 
