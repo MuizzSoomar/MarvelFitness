@@ -4,12 +4,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import AuthenticationService from '../../service/AuthenticationService.js'
 
 class NavBar extends Component {
+
   render() {
-    let loggedIn = this.props.loggedIn
-    let isCustomer = this.props.isCustomer
 
     return (
       <Navbar fluid collapseOnSelect>
@@ -21,22 +19,19 @@ class NavBar extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            { !loggedIn && <LinkContainer to="/login">
+            { !this.props.loggedIn && <LinkContainer to="/login">
               <NavItem>Login</NavItem>
             </LinkContainer>}
-            { (loggedIn && isCustomer) && <LinkContainer to={`/profile/${this.props.id}`}>
+            { (this.props.loggedIn && this.props.isCustomer) && <LinkContainer to={`/profile/${this.props.id}`}>
               <NavItem>Profile</NavItem>
             </LinkContainer> }
-            { (loggedIn && !isCustomer) && <LinkContainer to="/customers/search">
+            { (this.props.loggedIn && !this.props.isCustomer) && <LinkContainer to="/customers/search">
               <NavItem>Customers</NavItem>
             </LinkContainer> }
-            { (loggedIn && !isCustomer) && <LinkContainer to="/rewards">
+            { (this.props.loggedIn  && this.props.isCustomer ) && <LinkContainer to={`/rewards/${this.props.id}`}>
               <NavItem>Rewards</NavItem>
             </LinkContainer>}
-            { (loggedIn  && isCustomer ) && <LinkContainer to={`/rewards/${this.props.id}`}>
-              <NavItem>Rewards</NavItem>
-            </LinkContainer>}
-            { loggedIn && <LinkContainer to="/logout">
+            { this.props.loggedIn && <LinkContainer to="/logout">
               <NavItem>Logout</NavItem>
             </LinkContainer> }
           </Nav>
@@ -61,4 +56,8 @@ export default connect(mapStateToProps)(NavBarRouted)
 
 // { loggedIn && <LinkContainer to={`/dashboard/${this.props.username}`}>
 //   <NavItem>Dashboard</NavItem>
+// </LinkContainer>}
+
+// { (this.props.loggedIn && !this.props.isCustomer) && <LinkContainer to="/rewards">
+//   <NavItem>Rewards</NavItem>
 // </LinkContainer>}
