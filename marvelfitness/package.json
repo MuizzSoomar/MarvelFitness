@@ -9,7 +9,7 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "history": "^4.9.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.9.0",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-table-next": "^3.1.9",
